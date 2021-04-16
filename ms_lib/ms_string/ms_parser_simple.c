@@ -15,13 +15,10 @@ int ms_strparser_simple_len(char *str, char sep)
         if (count_char > 0 && str[i] == sep) {
             count++;
             count_char = 0;
-        }else
+        }else if (str[i] != sep)
             count_char++;
     }
-    if (count_char > 0)
-        count++;
-    count_char = 0;
-    return (count);
+    return ((count_char > 0)? count + 1 : count);
 }
 
 char **ms_strparser_simple(char *str, char sep)
@@ -29,9 +26,9 @@ char **ms_strparser_simple(char *str, char sep)
     int count = ms_strparser_simple_len(str, sep);
     int count_char = 0;
     int index = 0;
+    int i = 0;
     char **tab = ms_malloc(sizeof(char *) * (count + 1));
     tab[count] = NULL;
-    int i = 0;
     for (i = 0; str[i] != '\0'; i++) {
         if (count_char > 0 && str[i] == sep) {
             tab[index] = ms_malloc(sizeof(char) * (count_char + 1));
@@ -39,7 +36,7 @@ char **ms_strparser_simple(char *str, char sep)
             count++;
             index++;
             count_char = 0;
-        }else
+        }else if (str[i] != sep)
             count_char++;
     }if (count_char > 0){
         tab[index] = ms_malloc(sizeof(char) * (count_char + 1));

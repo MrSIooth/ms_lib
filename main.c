@@ -30,6 +30,10 @@ void empty_ms_heap(void)
 
 int main()
 {
-    
+    char *str = "   hello    my    dude ";
+    char **tab = ms_strparser_simple(str, ' ');
+    for (int i = 0; tab[i] != NULL; i++) {
+        printf("%s\n", tab[i]);
+    }
     return (0);
 }
