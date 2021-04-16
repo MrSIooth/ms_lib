@@ -5,7 +5,7 @@
 ** print the number from a str
 */
 
-#include "ms_lib.h"
+#include "../ms_lib.h"
 
 int ms_getnbr(char const *str)
 {

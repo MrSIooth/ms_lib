@@ -5,7 +5,7 @@
 ** ms_read
 */
 
-#include "ms_lib.h"
+#include "../ms_lib.h"
 
 char *ms_read(const char *pathname)
 {

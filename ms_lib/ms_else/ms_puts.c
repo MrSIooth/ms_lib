@@ -5,7 +5,7 @@
 ** putchar
 */
 
-#include "ms_lib.h"
+#include "../ms_lib.h"
 
 void ms_putchar(char c, int file)
 {

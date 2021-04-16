@@ -5,7 +5,7 @@
 ** nbrlen
 */
 
-#include "ms_lib.h"
+#include "../ms_lib.h"
 
 int ms_nbrlen(int nbr)
 {

@@ -20,55 +20,222 @@
 
 #include "ms_types.h"
 
-///////////////////////////////////////////////////////////////////////////////
-//ms_getnbr
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Get a numbre from a string
-* 
-* @param str string to read
-*/
-int ms_getnbr(char const *str);
-
+/******************************************************************************
+*******************************************************************************
+*******************************************************************************
+******************************************************************************/
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_putnbr
+//ms_linked_list_create
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Write down a number in a specific file
-* 
-* @param nb number to be written
-* @param file file descriptor
+* @brief Create a simple linked_list elmnt.
+* @return Return a new allocated linked_list elmnt
 */
-void ms_putnbr(int nb, int file);
+ms_linked_list*ms_linked_list_create(void *elmnt_pointer);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_putchar
+//ms_linked_list_push
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Write down a char in a specific file
-* 
-* @param c char to be written
-* @param file file descriptor
+* @brief Push a linked list elmnt into a linked list
 */
-void ms_putchar(char c, int file);
+void ms_linked_list_push(ms_linked_list **list, ms_linked_list *elmnt);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_putstr
+//ms_linked_list_pop_first
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Write down a string in a specific file
+* @brief Pop the the first elmnt of linked list
 * 
-* @param str string to be written
-* @param file file descriptor
+* @param List list from which to pop the first elmnt
 */
-void ms_putstr(char const *str, int file);
+void ms_linked_list_pop_first(ms_linked_list **list);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_linked_list_pop_elmnt
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Pop the elmnt from a linked list
+* 
+* @param List list where elmnt is stored
+* @param elmnt elmnt to be popped
+*/
+void ms_linked_list_pop_elmnt(ms_linked_list **list, ms_linked_list *elmnt);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_linked_list_pop_list
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Pop the whole linked list
+* 
+* @param List list to be popped
+*/
+void ms_linked_list_pop_list(ms_linked_list **list);
+
+
+/******************************************************************************
+*******************************************************************************
+*******************************************************************************
+******************************************************************************/
+
+
+/******************************************************************************
+*******************************************************************************
+*******************************************************************************
+******************************************************************************/
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_malloc
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Allocate SIZE bytes of memory.
+* 
+* @param size number of byte to allocate
+*/
+void*ms_malloc(size_t size);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_free
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief free pointer variable allocated by ms_malloc
+* 
+* @param pointer pointer to be freed
+*/
+void ms_free(void *pointer);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_free_all
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief free all variable allocated by ms_malloc
+*/
+void ms_free_all(void);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_free_first
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief free first pointer variable allocated by ms_malloc
+* 
+* @param list list of pointer from which to free the first one
+*/
+void ms_free_first(memory_t **list);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_push_memory_slot
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief push MEMORY_SLOT in LIST
+* 
+* @param list memory list
+* @param memory_slot new pointer to be added
+*/
+void ms_push_memory_slot(memory_t **list, memory_t *memory_slot);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_memory
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief return the memory list.
+*/
+memory_t **ms_memory();
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_copy
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Copy a pointer into a new allocated pointer
+* 
+* @param origin Pointer to be copied
+*/
+void *ms_copy(void *origin);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_copy_
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Copy a pointer into dest
+* 
+* @param dest Destination of the copy
+* @param origin Pointer to be copied
+*/
+void ms_copy_(void *dest, void *origin);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_malloc_char_tab
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Malloc a char** terminated by NULL in tab[n] and terminated by 0 in 
+* tab[n][m]. The tab in filled of 'X'
+* @param height Height of the tab
+* @param width Width of the tab
+*/
+char**ms_malloc_char_tab(int height, int width);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_malloc_int_tab
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Malloc a int** terminated. The tab in filled of 0
+* @param height Height of the tab
+* @param width Width of the tab
+*/
+int**ms_malloc_int_tab(int height, int width);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_realloc
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Return a new pointer with a new size but with the same elements. 
+* The original pointer is freed during this function call.
+* @param target Original pointer
+* @param new_size New size of the new pointer in byte
+*/
+void*ms_realloc(void *target, size_t new_size);
+
+
+/******************************************************************************
+*******************************************************************************
+*******************************************************************************
+******************************************************************************/
+
+
+/******************************************************************************
+*******************************************************************************
+*******************************************************************************
+******************************************************************************/
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -136,141 +303,6 @@ int ms_strcmp(char *first, char *second);
 */
 int ms_strncmp(char *first, char *second, int len);
 
-
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_malloc
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Allocate SIZE bytes of memory.
-* 
-* @param size number of byte to allocate
-*/
-void*ms_malloc(size_t size);
-
-/**
-* @brief free pointer variable allocated by ms_malloc
-* 
-* @param pointer pointer to be freed
-*/
-void ms_free(void *pointer);
-
-/**
-* @brief free all variable allocated by ms_malloc
-*/
-void ms_free_all(void);
-
-/**
-* @brief free first pointer variable allocated by ms_malloc
-* 
-* @param list list of pointer from which to free the first one
-*/
-void ms_free_first(memory_t **list);
-
-/**
-* @brief push MEMORY_SLOT in LIST
-* 
-* @param list memory list
-* @param memory_slot new pointer to be added
-*/
-void ms_push_memory_slot(memory_t **list, memory_t *memory_slot);
-
-/**
-* @brief return the memory list.
-*/
-memory_t **ms_memory();
-
-/**
-* @brief Copy a pointer into a new allocated pointer
-* 
-* @param origin Pointer to be copied
-*/
-void *ms_copy(void *origin);
-
-/**
-* @brief Copy a pointer into dest
-* 
-* @param dest Destination of the copy
-* @param origin Pointer to be copied
-*/
-void ms_copy_(void *dest, void *origin);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_read
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Reads the content of a file
-* @param pathname Path of the file to be read
-* 
-* @return content of the file
-*/
-char*ms_read(const char *pathname);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_nbrlen
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Get th length of a number
-* @param nbr Number from which to get information
-*/
-int ms_nbrlen(int nbr);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_printf
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Get th length of a number
-* @param nbr Number from which to get information
-*/
-int ms_printf(int file, const char *format, ...);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_malloc_char_tab
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Malloc a char** terminated by NULL in tab[n] and terminated by 0 in 
-* tab[n][m]. The tab in filled of 'X'
-* @param height Height of the tab
-* @param width Width of the tab
-*/
-char**ms_malloc_char_tab(int height, int width);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_malloc_int_tab
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Malloc a int** terminated. The tab in filled of 0
-* @param height Height of the tab
-* @param width Width of the tab
-*/
-int**ms_malloc_int_tab(int height, int width);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_realloc
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Return a new pointer with a new size but with the same elements. 
-* The original pointer is freed during this function call.
-* @param target Original pointer
-* @param new_size New size of the new pointer in byte
-*/
-void*ms_realloc(void *target, size_t new_size);
-
-
 ///////////////////////////////////////////////////////////////////////////////
 //ms_strinsert
 ///////////////////////////////////////////////////////////////////////////////
@@ -310,64 +342,6 @@ char*ms_strncat(char *dest, char *str, int pos);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_linked_list_create
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Create a simple linked_list elmnt.
-* @return Return a new allocated linked_list elmnt
-*/
-ms_linked_list*ms_linked_list_create(void *elmnt_pointer);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_linked_list_push
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Push a linked list elmnt into a linked list
-*/
-void ms_linked_list_push(ms_linked_list **list, ms_linked_list *elmnt);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_linked_list_pop_first
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Pop the the first elmnt of linked list
-* 
-* @param List list from which to pop the first elmnt
-*/
-void ms_linked_list_pop_first(ms_linked_list **list);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_linked_list_pop_elmnt
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Pop the elmnt from a linked list
-* 
-* @param List list where elmnt is stored
-* @param elmnt elmnt to be popped
-*/
-void ms_linked_list_pop_elmnt(ms_linked_list **list, ms_linked_list *elmnt);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_linked_list_pop_list
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Pop the whole linked list
-* 
-* @param List list to be popped
-*/
-void ms_linked_list_pop_list(ms_linked_list **list);
-
-
-///////////////////////////////////////////////////////////////////////////////
 //ms_match
 ///////////////////////////////////////////////////////////////////////////////
 
@@ -381,7 +355,6 @@ void ms_linked_list_pop_list(ms_linked_list **list);
 int ms_match(char const *str1, char const *str2);
 
 
-
 ///////////////////////////////////////////////////////////////////////////////
 //ms_strparser_simple
 ///////////////////////////////////////////////////////////////////////////////
@@ -393,5 +366,155 @@ int ms_match(char const *str1, char const *str2);
 * @param sep char seperator
 */
 char **ms_strparser_simple(char *str, char sep);
+
+
+/******************************************************************************
+*******************************************************************************
+*******************************************************************************
+******************************************************************************/
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_fprintf
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Simplified fprintf
+* @param file File in which to write
+* @param format string to be printed out, tags may be inserted
+* @param vaarg value of the tags
+*/
+int ms_fprintf(int file, const char *format, ...);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_printf
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Simplified printf
+* @param format string to be printed out, tags may be inserted
+* @param vaarg value of the tags
+*/
+int ms_printf(const char *format, ...);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_printf_tag
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Simplified printf
+* @param str string which starts with the tag
+* @param list list of vaargs
+* @param file in which to write
+*/
+void ms_printf_tag(const char *str, va_list list, int file);
+
+
+/******************************************************************************
+*******************************************************************************
+*******************************************************************************
+******************************************************************************/
+
+
+/******************************************************************************
+*******************************************************************************
+*******************************************************************************
+******************************************************************************/
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_putnbr
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Write down a number in a specific file
+* 
+* @param nb number to be written
+* @param file file descriptor
+*/
+void ms_putnbr(int nb, int file);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_putchar
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Write down a char in a specific file
+* 
+* @param c char to be written
+* @param file file descriptor
+*/
+void ms_putchar(char c, int file);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_putstr
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Write down a string in a specific file
+* 
+* @param str string to be written
+* @param file file descriptor
+*/
+void ms_putstr(char const *str, int file);
+
+
+/******************************************************************************
+*******************************************************************************
+*******************************************************************************
+******************************************************************************/
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_getnbr
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Get a numbre from a string
+* 
+* @param str string to read
+*/
+int ms_getnbr(char const *str);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_read
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Reads the content of a file
+* @param pathname Path of the file to be read
+* 
+* @return content of the file
+*/
+char*ms_read(const char *pathname);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_nbrlen
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Get th length of a number
+* @param nbr Number from which to get information
+*/
+int ms_nbrlen(int nbr);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_nbr_to_str
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief turns a nbr into a str
+* 
+* @param nbr nbr to be converted
+* @return newly allocated str containing nbr
+*/
+char *ms_nbr_to_str(int nbr);
 
 #endif /* !LIB*/

@@ -5,9 +5,10 @@
 ## make
 ##
 
-SRC	=	*.c					\
+SRC	=	ms_else/*.c			\
 		ms_linked_list/*.c	\
 		ms_memory/*.c		\
+		ms_printf/*.c		\
 		ms_string/*.c
 
 

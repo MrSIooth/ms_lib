@@ -14,13 +14,6 @@
 #include "ms_xml_lib/ms_xml_lib.h"
 #include "ms_csfml_lib/ms_csfml_lib.h"
 
-typedef struct temp_t {
-    short _1;
-    short _2;
-    long int _3;
-    char _4[4];
-}temp_t;
-
 void __attribute__((destructor)) empty_ms_heap();
 
 void empty_ms_heap(void)
@@ -30,10 +23,5 @@ void empty_ms_heap(void)
 
 int main()
 {
-    char *str = "   hello    my    dude ";
-    char **tab = ms_strparser_simple(str, ' ');
-    for (int i = 0; tab[i] != NULL; i++) {
-        printf("%s\n", tab[i]);
-    }
     return (0);
 }
