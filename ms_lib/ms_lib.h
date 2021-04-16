@@ -52,7 +52,6 @@ void ms_linked_list_push(ms_linked_list **list, ms_linked_list *elmnt);
 
 /**
 * @brief Pop the the first elmnt of linked list
-* 
 * @param List list from which to pop the first elmnt
 */
 void ms_linked_list_pop_first(ms_linked_list **list);
@@ -64,7 +63,6 @@ void ms_linked_list_pop_first(ms_linked_list **list);
 
 /**
 * @brief Pop the elmnt from a linked list
-* 
 * @param List list where elmnt is stored
 * @param elmnt elmnt to be popped
 */
@@ -77,7 +75,6 @@ void ms_linked_list_pop_elmnt(ms_linked_list **list, ms_linked_list *elmnt);
 
 /**
 * @brief Pop the whole linked list
-* 
 * @param List list to be popped
 */
 void ms_linked_list_pop_list(ms_linked_list **list);
@@ -100,10 +97,9 @@ void ms_linked_list_pop_list(ms_linked_list **list);
 
 /**
 * @brief Allocate SIZE bytes of memory.
-* 
 * @param size number of byte to allocate
 */
-void*ms_malloc(size_t size);
+void *ms_malloc(size_t size);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -112,7 +108,6 @@ void*ms_malloc(size_t size);
 
 /**
 * @brief free pointer variable allocated by ms_malloc
-* 
 * @param pointer pointer to be freed
 */
 void ms_free(void *pointer);
@@ -134,7 +129,6 @@ void ms_free_all(void);
 
 /**
 * @brief free first pointer variable allocated by ms_malloc
-* 
 * @param list list of pointer from which to free the first one
 */
 void ms_free_first(memory_t **list);
@@ -146,7 +140,6 @@ void ms_free_first(memory_t **list);
 
 /**
 * @brief push MEMORY_SLOT in LIST
-* 
 * @param list memory list
 * @param memory_slot new pointer to be added
 */
@@ -169,23 +162,21 @@ memory_t **ms_memory();
 
 /**
 * @brief Copy a pointer into a new allocated pointer
-* 
 * @param origin Pointer to be copied
 */
 void *ms_copy(void *origin);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_copy_
+//ms_copy_i
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
 * @brief Copy a pointer into dest
-* 
 * @param dest Destination of the copy
 * @param origin Pointer to be copied
 */
-void ms_copy_(void *dest, void *origin);
+void ms_copy_i(void *dest, void *origin);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -193,12 +184,11 @@ void ms_copy_(void *dest, void *origin);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Malloc a char** terminated by NULL in tab[n] and terminated by 0 in 
-* tab[n][m]. The tab in filled of 'X'
+* @brief Malloc a char ** terminated by NULL in tab[n] and terminated by 0 in tab[n][m]. The tab in filled of 'X'
 * @param height Height of the tab
 * @param width Width of the tab
 */
-char**ms_malloc_char_tab(int height, int width);
+char **ms_malloc_char_tab(int height, int width);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -206,11 +196,11 @@ char**ms_malloc_char_tab(int height, int width);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Malloc a int** terminated. The tab in filled of 0
+* @brief Malloc a int ** terminated. The tab in filled of 0
 * @param height Height of the tab
 * @param width Width of the tab
 */
-int**ms_malloc_int_tab(int height, int width);
+int **ms_malloc_int_tab(int height, int width);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -218,12 +208,11 @@ int**ms_malloc_int_tab(int height, int width);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Return a new pointer with a new size but with the same elements. 
-* The original pointer is freed during this function call.
+* @brief Return a new pointer with a new size but with the same elements. The original pointer is freed during this function call.
 * @param target Original pointer
 * @param new_size New size of the new pointer in byte
 */
-void*ms_realloc(void *target, size_t new_size);
+void *ms_realloc(void *target, size_t new_size);
 
 
 /******************************************************************************
@@ -244,7 +233,6 @@ void*ms_realloc(void *target, size_t new_size);
 
 /**
 * @brief Copy a string to another already allocated string
-* 
 * @param str destination (already pre-allocated to the right size)
 * @param str_2 target from which to copy
 */
@@ -257,7 +245,6 @@ void ms_strcpy(char *str, char *str_2);
 
 /**
 * @brief Copy N character from a string to another already allocated string
-* 
 * @param str destination (already pre-allocated to the right size)
 * @param str_2 target from which to copy
 * @param n number of character to be copied
@@ -271,7 +258,6 @@ void ms_strncpy(char *str, char *str_2, int n);
 
 /**
 * @brief Get the length of a string
-* 
 * @param str String from wich to get the length
 */
 int ms_strlen(char const *str);
@@ -283,7 +269,6 @@ int ms_strlen(char const *str);
 
 /**
 * @brief Compare if two string are the same
-* 
 * @param first first string
 * @param first Second string
 */
@@ -296,7 +281,6 @@ int ms_strcmp(char *first, char *second);
 
 /**
 * @brief Compare if two string are the same until N character
-* 
 * @param first first string
 * @param first Second string
 * @param len Number o character to compare
@@ -313,7 +297,7 @@ int ms_strncmp(char *first, char *second, int len);
 * @param str String to be inserted
 * @param pos Number of character before inserting str
 */
-char*ms_strinsert(char *dest, char *str, int pos);
+char *ms_strinsert(char *dest, char *str, int pos);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -325,7 +309,7 @@ char*ms_strinsert(char *dest, char *str, int pos);
 * @param dest Destination string
 * @param str String to be inserted
 */
-char*ms_strcat(char *dest, char *str);
+char *ms_strcat(char *dest, char *str);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -338,7 +322,7 @@ char*ms_strcat(char *dest, char *str);
 * @param str String to be inserted
 * @param pos n character of dest
 */
-char*ms_strncat(char *dest, char *str, int pos);
+char *ms_strncat(char *dest, char *str, int pos);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -346,9 +330,7 @@ char*ms_strncat(char *dest, char *str, int pos);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Check if str2 is in str1, str2 can contain a '*' 
-* which can represent any string from str1
-* 
+* @brief Check if str2 is in str1, str2 can contain a '*' which can represent any string from str1
 * @param str1 Str to check in
 * @param str2 Str to find in str1
 */
@@ -361,7 +343,6 @@ int ms_match(char const *str1, char const *str2);
 
 /**
 * @brief Parse the string into a char **
-* 
 * @param str Str to be parsed
 * @param sep char seperator
 */
@@ -404,7 +385,7 @@ int ms_printf(const char *format, ...);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Simplified printf
+* @brief Print the tag givin by ms_printf or ms_fprintf
 * @param str string which starts with the tag
 * @param list list of vaargs
 * @param file in which to write
@@ -430,7 +411,6 @@ void ms_printf_tag(const char *str, va_list list, int file);
 
 /**
 * @brief Write down a number in a specific file
-* 
 * @param nb number to be written
 * @param file file descriptor
 */
@@ -443,7 +423,6 @@ void ms_putnbr(int nb, int file);
 
 /**
 * @brief Write down a char in a specific file
-* 
 * @param c char to be written
 * @param file file descriptor
 */
@@ -456,7 +435,6 @@ void ms_putchar(char c, int file);
 
 /**
 * @brief Write down a string in a specific file
-* 
 * @param str string to be written
 * @param file file descriptor
 */
@@ -475,7 +453,6 @@ void ms_putstr(char const *str, int file);
 
 /**
 * @brief Get a numbre from a string
-* 
 * @param str string to read
 */
 int ms_getnbr(char const *str);
@@ -488,10 +465,9 @@ int ms_getnbr(char const *str);
 /**
 * @brief Reads the content of a file
 * @param pathname Path of the file to be read
-* 
 * @return content of the file
 */
-char*ms_read(const char *pathname);
+char *ms_read(const char *pathname);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -511,7 +487,6 @@ int ms_nbrlen(int nbr);
 
 /**
 * @brief turns a nbr into a str
-* 
 * @param nbr nbr to be converted
 * @return newly allocated str containing nbr
 */
