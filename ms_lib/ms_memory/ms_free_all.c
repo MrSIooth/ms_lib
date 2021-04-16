@@ -9,7 +9,7 @@
 
 void ms_free_all(void)
 {
-    void **list = ms_memory();
+    memory_t **list = ms_memory();
     while (*list != NULL)
         ms_free_first(list);
 }

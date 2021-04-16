@@ -14,7 +14,7 @@ SRC	=	*.c					\
 NAME	=	ms_lib
 
 all:
-	gcc -c $(SRC)
+	gcc -c $(SRC) -g3
 	ar rc $(NAME).a *.o
 	rm -f *~
 

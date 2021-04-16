@@ -30,9 +30,6 @@ void empty_ms_heap(void)
 
 int main()
 {
-    temp_t temp;
-    printf("%ld\n", sizeof(temp_t));
-    printf("%ld %ld %ld %ld\n", &temp._1, &temp._2, &temp._3, &temp._4);
-    printf("%ld %ld %ld %ld\n", sizeof(temp._1), sizeof(temp._2), sizeof(temp._3), sizeof(temp._4));
+    
     return (0);
 }

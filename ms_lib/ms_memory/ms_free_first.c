@@ -7,15 +7,15 @@
 
 #include "../ms_lib.h"
 
-void ms_free_first(void **list)
+void ms_free_first(memory_t **list)
 {
-    void *temp = NULL;
-    if (((void **)(*list))[0] == NULL) {
+    memory_t *temp = NULL;
+    if ((*list)->next == NULL) {
         free(*list);
         *list = NULL;
     }else {
-        ((void **)(((void **)(*list))[0]))[1] = ((void **)(*list))[1];
-        temp = ((void **)(*list))[0];
+        (*list)->next->prev = (*list)->prev;
+        temp = (*list)->next;
         free(*list);
         *list = temp;
     }

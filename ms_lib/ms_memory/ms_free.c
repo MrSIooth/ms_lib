@@ -9,19 +9,17 @@
 
 void ms_free(void *pointer)
 {
-    void **list = ms_memory();
-    void *act_pointer = (pointer - sizeof(void *) * 3);
+    memory_t **list = ms_memory();
+    memory_t *act_pointer = (pointer - sizeof(memory_t));
     if (*list == act_pointer)
         ms_free_first(list);
-    else if (((void **)act_pointer)[0] == NULL) {
-        ((void **)(*list))[1] = ((void **)(((void **)(*list))[1]))[1];
-        ((void **)(((void **)(*list))[1]))[0] = NULL;
+    else if (act_pointer->next == NULL) {
+        (*list)->prev = (*list)->prev->prev;
+        (*list)->prev->next = NULL;
         free(act_pointer);
     }else {
-        ((void **)(((void **)act_pointer)[0]))[1] =
-        ((void **)act_pointer)[1];
-        ((void **)(((void **)act_pointer)[1]))[0] =
-        ((void **)act_pointer)[0];
+        act_pointer->next->prev = act_pointer->prev;
+        act_pointer->prev->next = act_pointer->next;
         free(act_pointer);
     }
 }

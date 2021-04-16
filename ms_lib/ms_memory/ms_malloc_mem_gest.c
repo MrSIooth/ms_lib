@@ -7,21 +7,21 @@
 
 #include "../ms_lib.h"
 
-void ms_push_memory_slot(void **list, void *memory_slot)
+void ms_push_memory_slot(memory_t **list, memory_t *memory_slot)
 {
-    ((void **)memory_slot)[0] = NULL;
+    memory_slot->next = NULL;
     if (*list == NULL){
-        ((void **)memory_slot)[1] = memory_slot;
+        memory_slot->prev = memory_slot;
         *list = memory_slot;
     }else{
-        ((void **)memory_slot)[1] = ((void **)(*list))[1];
-        ((void **)(((void **)(*list))[1]))[0] = memory_slot;
-        ((void **)(*list))[1] = memory_slot;
+        memory_slot->prev = (*list)->prev;
+        (*list)->prev->next = memory_slot;
+        (*list)->prev = memory_slot;
     }
 }
 
-void **ms_memory(void)
+memory_t **ms_memory(void)
 {
-    static void *list = NULL;
+    static memory_t *list = NULL;
     return (&list);
 }

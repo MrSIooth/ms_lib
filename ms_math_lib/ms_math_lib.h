@@ -17,7 +17,7 @@
 #include <stdarg.h>
 #include <math.h>
 
-#include "../ms_types.h"
+#include "../ms_lib/ms_types.h"
 
 typedef struct ms_vect2i{
     int x;

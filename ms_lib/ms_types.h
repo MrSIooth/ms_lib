@@ -17,10 +17,18 @@
 #include <stdarg.h>
 #include <math.h>
 
+typedef struct memory_s memory_t;
+
 typedef enum ms_bool_e{
     ms_false,
     ms_true
 }ms_bool_e;
+
+typedef struct memory_s{
+    memory_t *next;
+    memory_t *prev;
+    size_t size;
+} memory_t;
 
 typedef struct ms_linked_list{
     void *elmnt;

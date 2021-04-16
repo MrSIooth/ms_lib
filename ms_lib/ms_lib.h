@@ -18,7 +18,7 @@
 #include <stdarg.h>
 #include <math.h>
 
-#include "../ms_types.h"
+#include "ms_types.h"
 
 ///////////////////////////////////////////////////////////////////////////////
 //ms_getnbr
@@ -155,7 +155,7 @@ void*ms_malloc(size_t size);
 * 
 * @param pointer pointer to be freed
 */
-void ms_free(void*pointer);
+void ms_free(void *pointer);
 
 /**
 * @brief free all variable allocated by ms_malloc
@@ -167,7 +167,7 @@ void ms_free_all(void);
 * 
 * @param list list of pointer from which to free the first one
 */
-void ms_free_first(void**list);
+void ms_free_first(memory_t **list);
 
 /**
 * @brief push MEMORY_SLOT in LIST
@@ -175,12 +175,27 @@ void ms_free_first(void**list);
 * @param list memory list
 * @param memory_slot new pointer to be added
 */
-void ms_push_memory_slot(void **list, void *memory_slot);
+void ms_push_memory_slot(memory_t **list, memory_t *memory_slot);
 
 /**
 * @brief return the memory list.
 */
-void**ms_memory();
+memory_t **ms_memory();
+
+/**
+* @brief Copy a pointer into a new allocated pointer
+* 
+* @param origin Pointer to be copied
+*/
+void *ms_copy(void *origin);
+
+/**
+* @brief Copy a pointer into dest
+* 
+* @param dest Destination of the copy
+* @param origin Pointer to be copied
+*/
+void ms_copy_(void *dest, void *origin);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -223,7 +238,8 @@ int ms_printf(int file, const char *format, ...);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Malloc a char** terminated by NULL in tab[n] and terminated by 0 in tab[n][m]. The tab in filled of 'X'
+* @brief Malloc a char** terminated by NULL in tab[n] and terminated by 0 in 
+* tab[n][m]. The tab in filled of 'X'
 * @param height Height of the tab
 * @param width Width of the tab
 */
@@ -247,7 +263,8 @@ int**ms_malloc_int_tab(int height, int width);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Return a new pointer with a new size but with the same elements. The original pointer is freed during this function call.
+* @brief Return a new pointer with a new size but with the same elements. 
+* The original pointer is freed during this function call.
 * @param target Original pointer
 * @param new_size New size of the new pointer in byte
 */
@@ -355,11 +372,26 @@ void ms_linked_list_pop_list(ms_linked_list **list);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Check if str2 is in str1, str2 can contain a '*' which can represent any string from str1
+* @brief Check if str2 is in str1, str2 can contain a '*' 
+* which can represent any string from str1
 * 
 * @param str1 Str to check in
 * @param str2 Str to find in str1
 */
 int ms_match(char const *str1, char const *str2);
+
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strparser_simple
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Parse the string into a char **
+* 
+* @param str Str to be parsed
+* @param sep char seperator
+*/
+char **ms_strparser_simple(char *str, char sep);
 
 #endif /* !LIB*/
