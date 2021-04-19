@@ -10,6 +10,8 @@
 int ms_strlen(char const *str)
 {
     int i = 0;
-    for (;str[i] != '\0'; i++);
+    if (str == NULL)
+        return (0);
+    for (i = 0; str[i] != '\0'; i++);
     return (i);
 }

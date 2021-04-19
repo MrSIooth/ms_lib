@@ -20,6 +20,8 @@
 
 #include "ms_types.h"
 
+#define ABS(X) ((X < 0)? -X : X)
+
 /******************************************************************************
 *******************************************************************************
 *******************************************************************************
@@ -168,7 +170,7 @@ void *ms_copy(void *origin);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_copy_i
+//ms_copy_ip
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -176,7 +178,7 @@ void *ms_copy(void *origin);
 * @param dest Destination of the copy
 * @param origin Pointer to be copied
 */
-void ms_copy_i(void *dest, void *origin);
+void ms_copy_ip(void *dest, void *origin);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -184,7 +186,8 @@ void ms_copy_i(void *dest, void *origin);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Malloc a char ** terminated by NULL in tab[n] and terminated by 0 in tab[n][m]. The tab in filled of 'X'
+* @brief Malloc a char ** terminated by NULL in tab[n] and terminated by 0 in 
+tab[n][m]. The tab in filled of 'X'
 * @param height Height of the tab
 * @param width Width of the tab
 */
@@ -208,7 +211,8 @@ int **ms_malloc_int_tab(int height, int width);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Return a new pointer with a new size but with the same elements. The original pointer is freed during this function call.
+* @brief Return a new pointer with a new size but with the same elements. 
+The original pointer is freed during this function call.
 * @param target Original pointer
 * @param new_size New size of the new pointer in byte
 */
@@ -236,7 +240,7 @@ void *ms_realloc(void *target, size_t new_size);
 * @param str destination (already pre-allocated to the right size)
 * @param str_2 target from which to copy
 */
-void ms_strcpy(char *str, char *str_2);
+void ms_strcpy(char *str);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -249,7 +253,7 @@ void ms_strcpy(char *str, char *str_2);
 * @param str_2 target from which to copy
 * @param n number of character to be copied
 */
-void ms_strncpy(char *str, char *str_2, int n);
+void ms_strncpy(char *str, int n);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -330,7 +334,8 @@ char *ms_strncat(char *dest, char *str, int pos);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Check if str2 is in str1, str2 can contain a '*' which can represent any string from str1
+* @brief Check if str2 is in str1, str2 can contain a '*' which can represent 
+any string from str1
 * @param str1 Str to check in
 * @param str2 Str to find in str1
 */
@@ -360,7 +365,7 @@ char **ms_strparser_simple(char *str, char sep);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Simplified fprintf
+* @brief Simplified official_fprintf
 * @param file File in which to write
 * @param format string to be printed out, tags may be inserted
 * @param vaarg value of the tags
@@ -373,7 +378,7 @@ int ms_fprintf(int file, const char *format, ...);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Simplified printf
+* @brief Simplified official_printf
 * @param format string to be printed out, tags may be inserted
 * @param vaarg value of the tags
 */
@@ -491,5 +496,19 @@ int ms_nbrlen(int nbr);
 * @return newly allocated str containing nbr
 */
 char *ms_nbr_to_str(int nbr);
+
+
+
+
+
+
+
+void ms_strcat_ip(char *dest, char *str);
+void ms_strncat_ip(char *dest, char *str, int pos);
+
+void ms_strcpy_ip(char *str, char *str_2);
+void ms_strncpy_ip(char *str, char *str_2, int n);
+
+void ms_strinsert_ip(char *dest, char *str, int pos);
 
 #endif /* !LIB*/

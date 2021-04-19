@@ -32,7 +32,7 @@ char **ms_strparser_simple(char *str, char sep)
     for (i = 0; str[i] != '\0'; i++) {
         if (count_char > 0 && str[i] == sep) {
             tab[index] = ms_malloc(sizeof(char) * (count_char + 1));
-            ms_strncpy(tab[index], str + i - count_char, count_char);
+            ms_strncpy_ip(tab[index], str + i - count_char, count_char);
             count++;
             index++;
             count_char = 0;
@@ -40,7 +40,7 @@ char **ms_strparser_simple(char *str, char sep)
             count_char++;
     }if (count_char > 0){
         tab[index] = ms_malloc(sizeof(char) * (count_char + 1));
-        ms_strncpy(tab[index], str + i - count_char, count_char);
+        ms_strncpy_ip(tab[index], str + i - count_char, count_char);
     }
     return (tab);
 }

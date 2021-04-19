@@ -7,7 +7,7 @@
 
 #include "../ms_lib.h"
 
-void ms_copy_i(void *dest, void *origin)
+void ms_copy_ip(void *dest, void *origin)
 {
     memory_t *pnt = origin - sizeof(memory_t);
     size_t byte_copied = 0;
