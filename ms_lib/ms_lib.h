@@ -159,18 +159,18 @@ memory_t **ms_memory();
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_copy
+//ms_memcopy
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
 * @brief Copy a pointer into a new allocated pointer
 * @param origin Pointer to be copied
 */
-void *ms_copy(void *origin);
+void *ms_memcopy(void *origin);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_copy_ip
+//ms_memcopy_ip
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -178,7 +178,32 @@ void *ms_copy(void *origin);
 * @param dest Destination of the copy
 * @param origin Pointer to be copied
 */
-void ms_copy_ip(void *dest, void *origin);
+void ms_memcopy_ip(void *dest, void *origin);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_memcopyn
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Copy a pointer into a new allocated pointer of n byte
+* @param origin Pointer to be copied
+* @param n Number of byte to copy
+*/
+void *ms_memcopyn(void *origin, size_t n);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_memcopyn_ip
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Copy a pointer into dest
+* @param dest Destination of the copy
+* @param origin Pointer to be copied
+* @param n Number of byte to copy
+*/
+void ms_memcopyn_ip(void *dest, void *origin, size_t n);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -219,6 +244,18 @@ The original pointer is freed during this function call.
 void *ms_realloc(void *target, size_t new_size);
 
 
+///////////////////////////////////////////////////////////////////////////////
+//ms_memset
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Set a pointers' values to a single byte
+* @param pnt pointer which contain the info to be changed
+* @param value Value to be chnaged to
+*/
+void ms_memset(void *pnt, byte value);
+
+
 /******************************************************************************
 *******************************************************************************
 *******************************************************************************
@@ -240,7 +277,7 @@ void *ms_realloc(void *target, size_t new_size);
 * @param str destination (already pre-allocated to the right size)
 * @param str_2 target from which to copy
 */
-void ms_strcpy(char *str);
+char *ms_strcpy(char *src);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -253,7 +290,7 @@ void ms_strcpy(char *str);
 * @param str_2 target from which to copy
 * @param n number of character to be copied
 */
-void ms_strncpy(char *str, int n);
+char *ms_strncpy(char *src, int n);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -506,8 +543,8 @@ char *ms_nbr_to_str(int nbr);
 void ms_strcat_ip(char *dest, char *str);
 void ms_strncat_ip(char *dest, char *str, int pos);
 
-void ms_strcpy_ip(char *str, char *str_2);
-void ms_strncpy_ip(char *str, char *str_2, int n);
+void ms_strcpy_ip(char *dest, char *src);
+void ms_strncpy_ip(char *dest, char *src, int n);
 
 void ms_strinsert_ip(char *dest, char *str, int pos);
 

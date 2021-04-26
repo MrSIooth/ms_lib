@@ -21,12 +21,8 @@ void empty_ms_heap(void)
     ms_free_all();
 }
 
+
 int main()
 {
-    char *hello = ms_malloc(100);
-    ms_strcpy_ip(hello, "hed");
-    char *bob = "bob";
-    ms_strinsert_ip(hello, bob, 2);
-    ms_printf("%s\n", hello);
     return (0);
 }
