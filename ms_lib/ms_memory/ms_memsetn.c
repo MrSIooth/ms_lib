@@ -1,16 +1,14 @@
 /*
 ** EPITECH PROJECT, 2021
-** ms_memset
+** ms_memsetn
 ** File description:
-** ms_memset
+** ms_memsetn
 */
 
 #include "../ms_lib.h"
 
-void ms_memset(void *pnt, byte value)
+void ms_memsetn(void *pnt, size_t size, byte value)
 {
-    size_t size = ((memory_t *)(pnt - sizeof(memory_t)))->size;
-
     for (int i = 0; i < size; i++)
         ((byte *)pnt)[i] = value;
 }

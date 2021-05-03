@@ -7,7 +7,7 @@
 
 #include "../ms_lib.h"
 
-char *ms_strinsert(char *dest, char *str, int pos)
+char *ms_strinsert_mal(char *dest, char *str, int pos)
 {
     int dest_pos = 0;
     int str_pos = 0;
@@ -24,7 +24,7 @@ char *ms_strinsert(char *dest, char *str, int pos)
     return (new_str);
 }
 
-void ms_strinsert_ip(char *dest, char *str, int pos)
+void ms_strinsert(char *dest, char *str, int pos)
 {
     int len_dest = ms_strlen(dest);
     int len_str = ms_strlen(str);

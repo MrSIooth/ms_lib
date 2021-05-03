@@ -9,7 +9,7 @@
 
 char *ms_nbr_to_str(int nbr)
 {
-    ms_bool_e neg = (nbr < 0)? ms_true : ms_false;
+    ms_bool_t neg = (nbr < 0)? ms_true : ms_false;
     int length = ms_nbrlen(nbr);
     char *str = ms_malloc(sizeof(char) * (length + 1));
     nbr *= (nbr > 0)? 1 : -1;

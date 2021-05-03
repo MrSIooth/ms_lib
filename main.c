@@ -10,9 +10,6 @@
 #include <SFML/Window.h>
 
 #include "ms_lib/ms_lib.h"
-#include "ms_math_lib/ms_math_lib.h"
-#include "ms_xml_lib/ms_xml_lib.h"
-#include "ms_csfml_lib/ms_csfml_lib.h"
 
 void __attribute__((destructor)) empty_ms_heap();
 
@@ -24,5 +21,6 @@ void empty_ms_heap(void)
 
 int main()
 {
+    ms_printf("%d\n", ms_strfind("Hello my name is", "s"));
     return (0);
 }

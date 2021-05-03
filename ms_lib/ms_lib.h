@@ -159,18 +159,18 @@ memory_t **ms_memory();
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_memcopy
+//ms_memcopy_mal
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
 * @brief Copy a pointer into a new allocated pointer
 * @param origin Pointer to be copied
 */
-void *ms_memcopy(void *origin);
+void *ms_memcopy_mal(void *origin);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_memcopy_ip
+//ms_memcopy
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -178,11 +178,11 @@ void *ms_memcopy(void *origin);
 * @param dest Destination of the copy
 * @param origin Pointer to be copied
 */
-void ms_memcopy_ip(void *dest, void *origin);
+void ms_memcopy(void *dest, void *origin);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_memcopyn
+//ms_memcopyn_mal
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -190,11 +190,11 @@ void ms_memcopy_ip(void *dest, void *origin);
 * @param origin Pointer to be copied
 * @param n Number of byte to copy
 */
-void *ms_memcopyn(void *origin, size_t n);
+void *ms_memcopyn_mal(void *origin, size_t n);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_memcopyn_ip
+//ms_memcopyn
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -203,7 +203,7 @@ void *ms_memcopyn(void *origin, size_t n);
 * @param origin Pointer to be copied
 * @param n Number of byte to copy
 */
-void ms_memcopyn_ip(void *dest, void *origin, size_t n);
+void ms_memcopyn(void *dest, void *origin, size_t n);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -249,11 +249,47 @@ void *ms_realloc(void *target, size_t new_size);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Set a pointers' values to a single byte
+* @brief Set a pointers' values to a single value
 * @param pnt pointer which contain the info to be changed
 * @param value Value to be chnaged to
 */
 void ms_memset(void *pnt, byte value);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_memsetn
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Set a pointers' n first bytes values to a single value
+* @param pnt pointer which contain the info to be changed
+* @param size Number of byte to set
+* @param value Value to be chnaged to
+*/
+void ms_memsetn(void *pnt, size_t size, byte value);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_malloc_val
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Allocate SIZE bytes of memory with each byte of set to value.
+* @param size number of byte to allocate
+* @param value value of each allocated byte
+*/
+void *ms_malloc_val(size_t size, byte value);
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_calloc
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Allocate count element of size byte.
+* @param count number of elmnt to allocate
+* @param size number of byte to allocate per elmnt
+*/
+void *ms_calloc(size_t count, size_t size);
 
 
 /******************************************************************************
@@ -269,7 +305,7 @@ void ms_memset(void *pnt, byte value);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_strcpy
+//ms_strcpy_mal
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -277,11 +313,11 @@ void ms_memset(void *pnt, byte value);
 * @param str destination (already pre-allocated to the right size)
 * @param str_2 target from which to copy
 */
-char *ms_strcpy(char *src);
+char *ms_strcpy_mal(char *src);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_strncpy
+//ms_strncpy_mal
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -290,7 +326,7 @@ char *ms_strcpy(char *src);
 * @param str_2 target from which to copy
 * @param n number of character to be copied
 */
-char *ms_strncpy(char *src, int n);
+char *ms_strncpy_mal(char *src, int n);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -301,7 +337,7 @@ char *ms_strncpy(char *src, int n);
 * @brief Get the length of a string
 * @param str String from wich to get the length
 */
-int ms_strlen(char const *str);
+size_t ms_strlen(char const *str);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -329,7 +365,7 @@ int ms_strcmp(char *first, char *second);
 int ms_strncmp(char *first, char *second, int len);
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_strinsert
+//ms_strinsert_mal
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -338,7 +374,7 @@ int ms_strncmp(char *first, char *second, int len);
 * @param str String to be inserted
 * @param pos Number of character before inserting str
 */
-char *ms_strinsert(char *dest, char *str, int pos);
+char *ms_strinsert_mal(char *dest, char *str, int pos);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -350,7 +386,7 @@ char *ms_strinsert(char *dest, char *str, int pos);
 * @param dest Destination string
 * @param str String to be inserted
 */
-char *ms_strcat(char *dest, char *str);
+char *ms_strcat_mal(char *dest, char *str);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -363,7 +399,7 @@ char *ms_strcat(char *dest, char *str);
 * @param str String to be inserted
 * @param pos n character of dest
 */
-char *ms_strncat(char *dest, char *str, int pos);
+char *ms_strncat_mal(char *dest, char *str, int pos);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -380,7 +416,7 @@ int ms_match(char const *str1, char const *str2);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_strparser_simple
+//ms_strparser_char
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
@@ -388,8 +424,129 @@ int ms_match(char const *str1, char const *str2);
 * @param str Str to be parsed
 * @param sep char seperator
 */
-char **ms_strparser_simple(char *str, char sep);
+char **ms_strparser_char(char *str, char sep);
 
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strparser_char
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Parse the string into a char **
+* @param str Str to be parsed
+* @param seps str containing multiple char to use as seperator
+*/
+char **ms_strparser_multchar(char *str, char *seps);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strcat
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Glue the second str at the end of the first str
+* @param str Str to wihich to glue
+* @param sep Str to be glued
+*/
+void ms_strcat(char *dest, char *str);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strncat
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Glue the second str after n char of the first str
+* @param str Str to wihich to glue
+* @param sep Str to be glued
+* @param pos After how many char to glue the str
+*/
+void ms_strncat(char *dest, char *str, int pos);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strcpy
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Copy a str into a str already allocated
+* @param dest Destination of the copy
+* @param src Origin of the copy
+*/
+void ms_strcpy(char *dest, char *src);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strncpy
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Copy n char of a str into a str already allocated
+* @param dest Destination of the copy
+* @param src Origin of the copy
+* @param n How many char to be copied
+*/
+void ms_strncpy(char *dest, char *src, int n);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strinsert
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Inserts a str inside a str
+* @param dest Destination of the insert
+* @param src Origin of the insert
+* @param pos How many char to skip before inserting the str
+*/
+void ms_strinsert(char *dest, char *str, int pos);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strfind
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Search a str in a str and returns it's index of apparition 
+(needle in a haystack)
+* @param str The str haystack
+* @param to_find The str needle
+*/
+int ms_strfind(const char *str, const char *to_find);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strfindn_after
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Search a str in a str after n char and returns it's index of 
+apparition, the return value will not be relative to n (needle in a haystack)
+* @param str The str haystack
+* @param to_find The str needle
+* @param n The number of char to skip
+*/
+int ms_strfindn_after(const char *str, const char *to_find, int n);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strfindn
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Search a str in a str before n char and returns it's index of 
+apparition (needle in a haystack)
+* @param str The str haystack
+* @param to_find The str needle
+* @param n Max number of char from the haystack to view
+*/
+int ms_strfindn(const char *str, const char *to_find, int n);
+
+
+/******************************************************************************
+*******************************************************************************
+*******************************************************************************
+******************************************************************************/
 
 /******************************************************************************
 *******************************************************************************
@@ -535,17 +692,5 @@ int ms_nbrlen(int nbr);
 char *ms_nbr_to_str(int nbr);
 
 
-
-
-
-
-
-void ms_strcat_ip(char *dest, char *str);
-void ms_strncat_ip(char *dest, char *str, int pos);
-
-void ms_strcpy_ip(char *dest, char *src);
-void ms_strncpy_ip(char *dest, char *src, int n);
-
-void ms_strinsert_ip(char *dest, char *str, int pos);
 
 #endif /* !LIB*/

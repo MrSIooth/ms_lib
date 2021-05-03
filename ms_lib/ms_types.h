@@ -54,7 +54,7 @@ typedef union all_types {
 typedef enum ms_bool_e{
     ms_false,
     ms_true
-}ms_bool_e;
+}ms_bool_t;
 
 typedef struct memory_s{
     memory_t *next;

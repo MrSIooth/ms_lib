@@ -7,11 +7,10 @@
 
 #include "../ms_lib.h"
 
-int ms_strlen(char const *str)
+size_t ms_strlen(char const *str)
 {
-    int i = 0;
-    if (str == NULL)
-        return (0);
+    size_t i = 0;
+
     for (i = 0; str[i] != '\0'; i++);
     return (i);
 }
