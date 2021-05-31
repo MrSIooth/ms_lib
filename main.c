@@ -11,6 +11,8 @@
 
 void __attribute__((destructor)) empty_ms_heap();
 
+char *ms_strformat(const char *format, ...);
+
 void empty_ms_heap(void)
 {
     ms_free_all();
@@ -20,5 +22,7 @@ void empty_ms_heap(void)
 
 int main(int argc, char **argv)
 {
+    char *str = ms_strdup("bob");
+    printf("%s\n", ms_strformat("hello %s %d", str, 10));
     return (0);
 }
