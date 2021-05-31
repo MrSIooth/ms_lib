@@ -597,6 +597,18 @@ apparition (needle in a haystack).
 int ms_strstrn(const char *str, const char *to_find, int n);
 
 
+///////////////////////////////////////////////////////////////////////////////
+//ms_strformat
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Format a string just as printf.
+* @param format String to be formated out, tags may be inserted.
+* @param vaarg Value of the tags.
+*/
+char *ms_strformat(const char *format, ...);
+
+
 /******************************************************************************
 ****************                                               ****************
 ****************   00000  00000  0000   00000  0   0   0000    ****************

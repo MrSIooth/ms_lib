@@ -23,6 +23,6 @@ void empty_ms_heap(void)
 int main(int argc, char **argv)
 {
     char *str = ms_strdup("bob");
-    printf("%s\n", ms_strformat("hello %s %d", str, 10));
+    printf("%s\n", ms_strformat("hello %s (%c) %d", str, 'h', 10));
     return (0);
 }
