@@ -1,17 +1,19 @@
 /*
 ** EPITECH PROJECT, 2021
-** ms_strcpy
+** coy
 ** File description:
-** ms_strcpy
+** cpy
 */
 
 #include "../ms_lib.h"
 
-void ms_strcpy(char *dest, char *src)
+char *ms_strdup(char *src)
 {
     int i = 0;
+    char *dest = ms_malloc(ms_strlen(src) + 1);
 
-    for (i = 0; src[i] != '\0'; i++)
+    for (i; src[i] != '\0'; i++)
         dest[i] = src[i];
     dest[i] = '\0';
+    return (dest);
 }

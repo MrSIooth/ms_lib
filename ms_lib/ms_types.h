@@ -17,12 +17,30 @@
 #include <stdarg.h>
 #include <math.h>
 
-typedef struct memory_s memory_t;
+typedef 		char 		byte;
+typedef 		short 		byte2;
+typedef 		int 		byte4;
+typedef 		size_t 		byte8;
+typedef struct 	byte16 		byte16;
+typedef struct 	byte32 		byte32;
+typedef struct 	byte64 		byte64;
+typedef struct 	byte128 	byte128;
+typedef struct 	memory_s 	memory_t;
+typedef struct 	ms_list_t 	ms_list_t;
+typedef union 	all_types_s all_types_t;
+typedef enum 	ms_bool_e 	ms_bool_t;
 
-typedef char byte;
-typedef short byte2;
-typedef int byte4;
-typedef size_t byte8;
+typedef enum ms_bool_e{
+    ms_false,
+    ms_true
+}ms_bool_t;
+
+typedef union all_types_s{
+    int i;
+    float f;
+    char c;
+    void *p;
+}all_types_t;
 
 typedef struct byte16{
     byte8 first_half;
@@ -44,28 +62,16 @@ typedef struct byte128{
     byte64 second_half;
 }byte128;
 
-typedef union all_types {
-    int nbr;
-    float deci;
-    char character;
-    void *pointer;
-}all_types;
-
-typedef enum ms_bool_e{
-    ms_false,
-    ms_true
-}ms_bool_t;
-
 typedef struct memory_s{
     memory_t *next;
     memory_t *prev;
     size_t size;
 } memory_t;
 
-typedef struct ms_linked_list{
+typedef struct ms_list_t{
     void *elmnt;
-    struct ms_linked_list *next;
-    struct ms_linked_list *prev;
-}ms_linked_list;
+    struct ms_list_t *next;
+    struct ms_list_t *prev;
+}ms_list_t;
 
 #endif /* !TYPES */

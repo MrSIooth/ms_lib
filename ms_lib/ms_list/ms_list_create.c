@@ -7,9 +7,10 @@
 
 #include "../ms_lib.h"
 
-ms_linked_list *ms_linked_list_create(void *elmnt_pointer)
+ms_list_t *ms_list_create(void *elmnt_pointer)
 {
-    ms_linked_list *elmnt = ms_malloc(sizeof(ms_linked_list));
+    ms_list_t *elmnt = ms_malloc(sizeof(ms_list_t));
+
     elmnt->elmnt = elmnt_pointer;
     elmnt->next = NULL;
     elmnt->prev = elmnt;

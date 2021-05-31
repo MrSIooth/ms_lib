@@ -5,9 +5,7 @@
 ** test
 */
 
-#include <SFML/Graphics.h>
-#include <SFML/Audio.h>
-#include <SFML/Window.h>
+#include <string.h>
 
 #include "ms_lib/ms_lib.h"
 
@@ -18,9 +16,9 @@ void empty_ms_heap(void)
     ms_free_all();
 }
 
+#include <stdint.h>
 
-int main()
+int main(int argc, char **argv)
 {
-    ms_printf("%d\n", ms_strfind("Hello my name is", "s"));
     return (0);
 }

@@ -9,8 +9,9 @@
 
 int **ms_malloc_int_tab(int height, int width)
 {
-    int **tab = ms_malloc(sizeof(int *) * height);
+    int **tab = ms_malloc(sizeof(int *) * (height + 1));
 
+    tab[height] = NULL;
     for (int i = 0; i < height; i++) {
         tab[i] = ms_malloc(sizeof(int) * width);
         for (int j = 0; j < width; j++)

@@ -10,16 +10,20 @@
 void ms_free(void *pointer)
 {
     memory_t **list = ms_memory();
-    memory_t *act_pointer = (pointer - sizeof(memory_t));
-    if (*list == act_pointer)
+    memory_t *act_pointer = NULL;
+
+    if (pointer == NULL)
+        return;
+    act_pointer = (pointer - sizeof(memory_t));
+    if (*list == act_pointer) {
         ms_free_first(list);
-    else if (act_pointer->next == NULL) {
+        return;
+    }if (act_pointer->next == NULL) {
         (*list)->prev = (*list)->prev->prev;
         (*list)->prev->next = NULL;
-        free(act_pointer);
     }else {
         act_pointer->next->prev = act_pointer->prev;
         act_pointer->prev->next = act_pointer->next;
-        free(act_pointer);
     }
+    free(act_pointer);
 }

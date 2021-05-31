@@ -10,6 +10,7 @@
 void ms_free_first(memory_t **list)
 {
     memory_t *temp = NULL;
+
     if ((*list)->next == NULL) {
         free(*list);
         *list = NULL;

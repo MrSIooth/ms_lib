@@ -1,18 +1,19 @@
 /*
 ** EPITECH PROJECT, 2021
-** ms_strcmp
+** ncmp
 ** File description:
-** ms_strcmp
+** ncmp
 */
 
 #include "../ms_lib.h"
 
-int ms_strcmp(char *first, char *second)
+int ms_strncmp(char *first, char *second, int len)
 {
-    for (int i = 0;; i++) {
+    for (int i = 0; i < len; i++) {
         if (first[i] == second[i] && first[i] == '\0')
             return (1);
         if (first[i] != second[i])
             return (0);
     }
+    return (1);
 }

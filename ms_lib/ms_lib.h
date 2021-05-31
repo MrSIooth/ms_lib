@@ -17,81 +17,101 @@
 #include <fcntl.h>
 #include <stdarg.h>
 #include <math.h>
+#include <string.h>
 
 #include "ms_types.h"
 
 #define ABS(X) ((X < 0)? -X : X)
 
 /******************************************************************************
-*******************************************************************************
-*******************************************************************************
+***********************                                ************************
+***********************   0      00000  00000  00000   ************************
+***********************   0        0    0        0     ************************
+***********************   0        0    00000    0     ************************
+***********************   0        0        0    0     ************************
+***********************   00000  00000  00000    0     ************************
+***********************                                ************************
 ******************************************************************************/
 
-///////////////////////////////////////////////////////////////////////////////
-//ms_linked_list_create
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Create a simple linked_list elmnt.
-* @return Return a new allocated linked_list elmnt
-*/
-ms_linked_list*ms_linked_list_create(void *elmnt_pointer);
-
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_linked_list_push
+//ms_list_create
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Push a linked list elmnt into a linked list
+* @brief Create a simple list block.
+* @return Return a new allocated list block.
 */
-void ms_linked_list_push(ms_linked_list **list, ms_linked_list *elmnt);
+ms_list_t *ms_list_create(void *elmnt_pointer);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_linked_list_pop_first
+//ms_list_push
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Pop the the first elmnt of linked list
-* @param List list from which to pop the first elmnt
+* @brief Push a list block into a list.
+* @param list List where to add the block.
+* @param block Blovk to be added.
 */
-void ms_linked_list_pop_first(ms_linked_list **list);
+void ms_list_push(ms_list_t **list, ms_list_t *block);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_linked_list_pop_elmnt
+//ms_list_pop_first
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Pop the elmnt from a linked list
-* @param List list where elmnt is stored
-* @param elmnt elmnt to be popped
+* @brief Pop the first block of list.
+* @param list List from which to pop the first block.
 */
-void ms_linked_list_pop_elmnt(ms_linked_list **list, ms_linked_list *elmnt);
+void ms_list_pop_first(ms_list_t **list);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_linked_list_pop_list
+//ms_list_pop_block
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Pop the whole linked list
-* @param List list to be popped
+* @brief Pop the block from a list.
+* @param List List where block is stored.
+* @param block Block to be popped.
 */
-void ms_linked_list_pop_list(ms_linked_list **list);
+void ms_list_pop_block(ms_list_t **list, ms_list_t *block);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_list_pop_list
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Pop the whole list
+* @param List list to be erased
+*/
+void ms_list_pop_list(ms_list_t **list);
 
 
 /******************************************************************************
-*******************************************************************************
-*******************************************************************************
+***********************                                ************************
+***********************   0      00000  00000  00000   ************************
+***********************   0        0    0        0     ************************
+***********************   0        0    00000    0     ************************
+***********************   0        0        0    0     ************************
+***********************   00000  00000  00000    0     ************************
+***********************                                ************************
 ******************************************************************************/
 
 
 /******************************************************************************
-*******************************************************************************
-*******************************************************************************
+****************                                               ****************
+****************   0   0  00000  0   0   000   0000   0   0   *****************
+****************   00 00  0      00 00  0   0  0   0  0   0   *****************
+****************   0 0 0  0000   0 0 0  0   0  0000    0 0    *****************
+****************   0   0  0      0   0  0   0  0  0     0     *****************
+****************   0   0  00000  0   0   000   0   0    0     *****************
+****************                                               ****************
 ******************************************************************************/
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //ms_malloc
@@ -99,7 +119,8 @@ void ms_linked_list_pop_list(ms_linked_list **list);
 
 /**
 * @brief Allocate SIZE bytes of memory.
-* @param size number of byte to allocate
+* @param size Number of byte to be allocated.
+* @return Newly allocated pointer.
 */
 void *ms_malloc(size_t size);
 
@@ -109,8 +130,8 @@ void *ms_malloc(size_t size);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief free pointer variable allocated by ms_malloc
-* @param pointer pointer to be freed
+* @brief Free pointer allocated by the ms_lib.
+* @param pointer Pointer to be freed.
 */
 void ms_free(void *pointer);
 
@@ -120,7 +141,7 @@ void ms_free(void *pointer);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief free all variable allocated by ms_malloc
+* @brief Free all variable allocated by ms_lib.
 */
 void ms_free_all(void);
 
@@ -130,22 +151,22 @@ void ms_free_all(void);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief free first pointer variable allocated by ms_malloc
-* @param list list of pointer from which to free the first one
+* @brief Free the first pointer allocated by ms_malloc.
+* @param list List of pointer from which to free the first one.
 */
 void ms_free_first(memory_t **list);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_push_memory_slot
+//ms_memory_push_block
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief push MEMORY_SLOT in LIST
-* @param list memory list
-* @param memory_slot new pointer to be added
+* @brief Push MEMORY_SLOT in LIST.
+* @param list Memory list.
+* @param memory_slot New pointer to be added.
 */
-void ms_push_memory_slot(memory_t **list, memory_t *memory_slot);
+void ms_memory_push_block(memory_t **list, memory_t *block);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -153,20 +174,22 @@ void ms_push_memory_slot(memory_t **list, memory_t *memory_slot);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief return the memory list.
+* @brief Stores' the memory list.
+* @return Return the memory list.
 */
 memory_t **ms_memory();
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_memcopy_mal
+//ms_memdup
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Copy a pointer into a new allocated pointer
-* @param origin Pointer to be copied
+* @brief Copy a pointer into a new allocated pointer.
+* @param origin Pointer to be copied.
+* @return Return a newly allocated pointer.
 */
-void *ms_memcopy_mal(void *origin);
+void *ms_memdup(void *origin);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -174,23 +197,24 @@ void *ms_memcopy_mal(void *origin);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Copy a pointer into dest
-* @param dest Destination of the copy
-* @param origin Pointer to be copied
+* @brief Copy a pointer into dest.
+* @param dest Destination of the copy.
+* @param origin Pointer to be copied.
 */
 void ms_memcopy(void *dest, void *origin);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_memcopyn_mal
+//ms_memdupn
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Copy a pointer into a new allocated pointer of n byte
-* @param origin Pointer to be copied
-* @param n Number of byte to copy
+* @brief Copy n byte of a pointer into a new allocated pointer of n byte.
+* @param origin Pointer to be copied.
+* @param n Number of byte to copy.
+* @return Return a newly allocated pointer.
 */
-void *ms_memcopyn_mal(void *origin, size_t n);
+void *ms_memdupn(void *origin, size_t n);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -198,10 +222,10 @@ void *ms_memcopyn_mal(void *origin, size_t n);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Copy a pointer into dest
-* @param dest Destination of the copy
-* @param origin Pointer to be copied
-* @param n Number of byte to copy
+* @brief Copy a pointer into dest.
+* @param dest Destination of the copy.
+* @param origin Pointer to be copied.
+* @param n Number of byte to copy.
 */
 void ms_memcopyn(void *dest, void *origin, size_t n);
 
@@ -211,10 +235,11 @@ void ms_memcopyn(void *dest, void *origin, size_t n);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Malloc a char ** terminated by NULL in tab[n] and terminated by 0 in 
-tab[n][m]. The tab in filled of 'X'
-* @param height Height of the tab
-* @param width Width of the tab
+* @brief Malloc a char ** terminated by NULL and terminated by 0 in 
+tab[n][m]. The tab in filled of 'X'.
+* @param height Height of the tab.
+* @param width Width of the tab.
+* @return Return a pointer to the allocated tab.
 */
 char **ms_malloc_char_tab(int height, int width);
 
@@ -224,9 +249,10 @@ char **ms_malloc_char_tab(int height, int width);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Malloc a int ** terminated. The tab in filled of 0
-* @param height Height of the tab
-* @param width Width of the tab
+* @brief Malloc a int ** terminated by NULL. The tab in filled of 0.
+* @param height Height of the tab.
+* @param width Width of the tab.
+* @return Return a pointer to the allocated tab.
 */
 int **ms_malloc_int_tab(int height, int width);
 
@@ -239,9 +265,10 @@ int **ms_malloc_int_tab(int height, int width);
 * @brief Return a new pointer with a new size but with the same elements. 
 The original pointer is freed during this function call.
 * @param target Original pointer
-* @param new_size New size of the new pointer in byte
+* @param size Number of byte to be reallocated.
+* @return Newly allocated pointer.
 */
-void *ms_realloc(void *target, size_t new_size);
+void *ms_realloc(void *target, size_t size);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -249,9 +276,9 @@ void *ms_realloc(void *target, size_t new_size);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Set a pointers' values to a single value
-* @param pnt pointer which contain the info to be changed
-* @param value Value to be chnaged to
+* @brief Set a pointers' bytes to a single value.
+* @param pnt Pointer which contain the info to be changed.
+* @param value Value to be chnaged to.
 */
 void ms_memset(void *pnt, byte value);
 
@@ -261,10 +288,10 @@ void ms_memset(void *pnt, byte value);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Set a pointers' n first bytes values to a single value
-* @param pnt pointer which contain the info to be changed
-* @param size Number of byte to set
-* @param value Value to be chnaged to
+* @brief Set a pointers' n first bytes to a single value.
+* @param pnt Pointer which contain the info to be changed.
+* @param size Number of byte to set.
+* @param value Value to be chnaged to.
 */
 void ms_memsetn(void *pnt, size_t size, byte value);
 
@@ -274,194 +301,47 @@ void ms_memsetn(void *pnt, size_t size, byte value);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Allocate SIZE bytes of memory with each byte of set to value.
-* @param size number of byte to allocate
-* @param value value of each allocated byte
+* @brief Allocate SIZE bytes of memory with each byte set to value.
+* @param size Number of byte to allocated.
+* @param value Value of each byte.
+* @return Newly allocated pointer.
 */
 void *ms_malloc_val(size_t size, byte value);
+
 
 ///////////////////////////////////////////////////////////////////////////////
 //ms_calloc
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Allocate count element of size byte.
-* @param count number of elmnt to allocate
-* @param size number of byte to allocate per elmnt
+* @brief Allocate COUNT element of SIZE byte.
+* @param count Number of elmnt to allocate.
+* @param size Number of byte to allocate per elmnt.
+* @return Newly allocated pointer.
 */
 void *ms_calloc(size_t count, size_t size);
 
 
 /******************************************************************************
-*******************************************************************************
-*******************************************************************************
+****************                                               ****************
+****************   0   0  00000  0   0   000   0000   0   0   *****************
+****************   00 00  0      00 00  0   0  0   0  0   0   *****************
+****************   0 0 0  0000   0 0 0  0   0  0000    0 0    *****************
+****************   0   0  0      0   0  0   0  0  0     0     *****************
+****************   0   0  00000  0   0   000   0   0    0     *****************
+****************                                               ****************
 ******************************************************************************/
 
 
 /******************************************************************************
-*******************************************************************************
-*******************************************************************************
+****************                                               ****************
+****************   00000  00000  0000   00000  0   0   0000    ****************
+****************   0        0    0   0    0    00  0  0        ****************
+****************   00000    0    0000     0    0 0 0  0  00    ****************
+****************       0    0    0  0     0    0  00  0   0    ****************
+****************   00000    0    0   0  00000  0   0   0000    ****************
+****************                                               ****************
 ******************************************************************************/
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_strcpy_mal
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Copy a string to another already allocated string
-* @param str destination (already pre-allocated to the right size)
-* @param str_2 target from which to copy
-*/
-char *ms_strcpy_mal(char *src);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_strncpy_mal
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Copy N character from a string to another already allocated string
-* @param str destination (already pre-allocated to the right size)
-* @param str_2 target from which to copy
-* @param n number of character to be copied
-*/
-char *ms_strncpy_mal(char *src, int n);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_strlen
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Get the length of a string
-* @param str String from wich to get the length
-*/
-size_t ms_strlen(char const *str);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_strcmp
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Compare if two string are the same
-* @param first first string
-* @param first Second string
-*/
-int ms_strcmp(char *first, char *second);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_strncmp
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Compare if two string are the same until N character
-* @param first first string
-* @param first Second string
-* @param len Number o character to compare
-*/
-int ms_strncmp(char *first, char *second, int len);
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_strinsert_mal
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Insert str inside dest after n character
-* @param dest Destination string
-* @param str String to be inserted
-* @param pos Number of character before inserting str
-*/
-char *ms_strinsert_mal(char *dest, char *str, int pos);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_strcat
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Insert str at the end of dest.
-* @param dest Destination string
-* @param str String to be inserted
-*/
-char *ms_strcat_mal(char *dest, char *str);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_strncat
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Insert str after n character of dest.
-* @param dest Destination string
-* @param str String to be inserted
-* @param pos n character of dest
-*/
-char *ms_strncat_mal(char *dest, char *str, int pos);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_match
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Check if str2 is in str1, str2 can contain a '*' which can represent 
-any string from str1
-* @param str1 Str to check in
-* @param str2 Str to find in str1
-*/
-int ms_match(char const *str1, char const *str2);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_strparser_char
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Parse the string into a char **
-* @param str Str to be parsed
-* @param sep char seperator
-*/
-char **ms_strparser_char(char *str, char sep);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_strparser_char
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Parse the string into a char **
-* @param str Str to be parsed
-* @param seps str containing multiple char to use as seperator
-*/
-char **ms_strparser_multchar(char *str, char *seps);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_strcat
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Glue the second str at the end of the first str
-* @param str Str to wihich to glue
-* @param sep Str to be glued
-*/
-void ms_strcat(char *dest, char *str);
-
-
-///////////////////////////////////////////////////////////////////////////////
-//ms_strncat
-///////////////////////////////////////////////////////////////////////////////
-
-/**
-* @brief Glue the second str after n char of the first str
-* @param str Str to wihich to glue
-* @param sep Str to be glued
-* @param pos After how many char to glue the str
-*/
-void ms_strncat(char *dest, char *str, int pos);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -469,9 +349,9 @@ void ms_strncat(char *dest, char *str, int pos);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Copy a str into a str already allocated
-* @param dest Destination of the copy
-* @param src Origin of the copy
+* @brief Copy a src into dest.
+* @param dest Destination of the copy.
+* @param src Origin of the copy.
 */
 void ms_strcpy(char *dest, char *src);
 
@@ -481,12 +361,117 @@ void ms_strcpy(char *dest, char *src);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Copy n char of a str into a str already allocated
-* @param dest Destination of the copy
-* @param src Origin of the copy
-* @param n How many char to be copied
+* @brief Copy N character of src into dest.
+* @param dest Destination of the copy.
+* @param src Origin of the copy.
+* @param n Number of character to be copied.
 */
 void ms_strncpy(char *dest, char *src, int n);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strdup
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Copy a string into a newly allocated string.
+* @param src Origin of the copy.
+* @return Newly allocated string.
+*/
+char *ms_strdup(char *src);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strndup
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Copy N character of src into a newly allocated string.
+* @param src Origin of the copy.
+* @param n Number of character to be copied.
+* @return Newly allocated string.
+*/
+char *ms_strndup(char *src, int n);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strlen
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Get the length of a string.
+* @param str String from which to get the length.
+* @return Return the length of of the string.
+*/
+size_t ms_strlen(char const *str);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strcmp
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Compare if two string are the same.
+* @param first First string to compare.
+* @param second Second string to compare.
+* @return Return 0 if different and 1 if equal.
+*/
+int ms_strcmp(char *first, char *second);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strncmp
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Compare if two string are the same until LEN character.
+* @param first first string to compare.
+* @param second Second string to compare.
+* @param len Number of character to compare.
+* @return Return 0 if different and 1 if equal.
+*/
+int ms_strncmp(char *first, char *second, int len);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strcmp_ascii
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Compare the ascii order of two strings.
+* @param first first string to compare.
+* @param second Second string to compare.
+* @return Return 0 if equal, -1 if s1 < s2 and 1 if s1 > s2.
+*/
+int ms_strcmp_ascii(const char *s1, const char *s2);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strncmp_ascii
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Compare the ascii order of two strings until LEN character.
+* @param first first string to compare.
+* @param second Second string to compare.
+* @param len Number of character to compare.
+* @return Return 0 if equal, -1 if s1 < s2 and 1 if s1 > s2.
+*/
+int ms_strncmp_ascii(const char *s1, const char *s2, int len);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strinsert_mal
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Insert STR inside DEST after POS character.
+* @param dest String destination.
+* @param str String to be inserted.
+* @param pos Number of character before inserting str.
+* @return Newly allocated string.
+*/
+char *ms_strinsert_mal(char *dest, char *str, int pos);
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -494,63 +479,217 @@ void ms_strncpy(char *dest, char *src, int n);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Inserts a str inside a str
-* @param dest Destination of the insert
-* @param src Origin of the insert
-* @param pos How many char to skip before inserting the str
+* @brief Inserts a str inside a dest after POS character.
+* @param dest String destination.
+* @param str String to be inserted.
+* @param pos Number of character before inserting str.
 */
 void ms_strinsert(char *dest, char *str, int pos);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_strfind
+//ms_strcat
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Insert str at the end of dest, and return it as a new str.
+* @param dest String destination.
+* @param str String to be inserted.
+* @return Newly allocated string.
+*/
+char *ms_strcat_mal(char *dest, char *str);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strncat
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Insert str after n character of dest, and return it as a new str.
+* @param dest String destination.
+* @param str String to be inserted.
+* @param pos Number of character to be inserted after.
+* @return Newly allocated string.
+*/
+char *ms_strncat_mal(char *dest, char *str, int pos);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_match
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Check if str2 is in str1, str2 may contain a '*' which can represent 
+any string from str1.
+* @param str1 Str to check in.
+* @param str2 Str to find in str1.
+* @return True if they match and false if they dont.
+*/
+int ms_match(char const *str1, char const *str2);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strcat
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Insert the second str at the end of dest.
+* @param dest String destination.
+* @param str String to be inserted.
+*/
+void ms_strcat(char *dest, char *str);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strncat
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Insert the second str after n char of the first str.
+* @param dest String destination.
+* @param str String to be inserted.
+* @param pos Number of character to be inserted after.
+*/
+void ms_strncat(char *dest, char *str, int pos);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_strstr
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
 * @brief Search a str in a str and returns it's index of apparition 
-(needle in a haystack)
-* @param str The str haystack
-* @param to_find The str needle
+(needle in a haystack).
+* @param str Str haystack.
+* @param to_find Str needle.
+* @return Index of the location.
 */
-int ms_strfind(const char *str, const char *to_find);
+int ms_strstr(const char *str, const char *to_find);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_strfindn_after
+//ms_strstrn_after
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
 * @brief Search a str in a str after n char and returns it's index of 
-apparition, the return value will not be relative to n (needle in a haystack)
-* @param str The str haystack
-* @param to_find The str needle
-* @param n The number of char to skip
+apparition, the return value will not be relative to n (needle in a haystack).
+* @param str Str haystack.
+* @param to_find Str needle.
+* @param n Number of char to skip.
+* @return Index of location.
 */
-int ms_strfindn_after(const char *str, const char *to_find, int n);
+int ms_strstrn_after(const char *str, const char *to_find, int n);
 
 
 ///////////////////////////////////////////////////////////////////////////////
-//ms_strfindn
+//ms_strstrn
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
 * @brief Search a str in a str before n char and returns it's index of 
-apparition (needle in a haystack)
-* @param str The str haystack
-* @param to_find The str needle
-* @param n Max number of char from the haystack to view
+apparition (needle in a haystack).
+* @param str Str haystack.
+* @param to_find Str needle.
+* @param n Max number of char from the haystack to view.
+* @return Index of location.
 */
-int ms_strfindn(const char *str, const char *to_find, int n);
+int ms_strstrn(const char *str, const char *to_find, int n);
 
 
 /******************************************************************************
-*******************************************************************************
-*******************************************************************************
+****************                                               ****************
+****************   00000  00000  0000   00000  0   0   0000    ****************
+****************   0        0    0   0    0    00  0  0        ****************
+****************   00000    0    0000     0    0 0 0  0  00    ****************
+****************       0    0    0  0     0    0  00  0   0    ****************
+****************   00000    0    0   0  00000  0   0   0000    ****************
+****************                                               ****************
 ******************************************************************************/
 
+
 /******************************************************************************
-*******************************************************************************
-*******************************************************************************
+****************                                               ****************
+****************   0000    000   0000   00000  00000  0000     ****************
+****************   0   0  0   0  0   0  0      0      0   0    ****************
+****************   0000   00000  0000   00000  0000   0000     ****************
+****************   0      0   0  0  0       0  0      0  0     ****************
+****************   0      0   0  0   0  00000  00000  0   0    ****************
+****************                                               ****************
+******************************************************************************/
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_parse_char
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Parse a str according to sep.
+* @param str Str to be parsed.
+* @param sep Seperator.
+* @return Returns a char ** ending in NULL.
+*/
+char **ms_parse_char(char *str, char sep);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_parse_multchar
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Parse a str according to multiple char.
+* @param str Str to be parsed.
+* @param sep Seperator.
+* @return Returns a char ** ending in NULL.
+*/
+char **ms_parse_multchar(char *str, char *seps);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_parse_smart_char
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Parse a str according to sep, with quotes taken care of.
+* @param str Str to be parsed.
+* @param sep Seperator.
+* @return Returns a char ** ending in NULL.
+*/
+char **ms_parse_smart_char(char *str, char sep);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_parse_smart_multchar
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Parse a str according to multiple char, with quotes taken care of.
+* @param str Str to be parsed.
+* @param sep Seperator.
+* @return Returns a char ** ending in NULL.
+*/
+char **ms_parse_smart_multchar(char *str, char *seps);
+
+
+/******************************************************************************
+****************                                               ****************
+****************   0000    000   0000   00000  00000  0000     ****************
+****************   0   0  0   0  0   0  0      0      0   0    ****************
+****************   0000   00000  0000   00000  0000   0000     ****************
+****************   0      0   0  0  0       0  0      0  0     ****************
+****************   0      0   0  0   0  00000  00000  0   0    ****************
+****************                                               ****************
+******************************************************************************/
+
+
+/******************************************************************************
+********************                                       ********************
+********************   0   0  0000   00000  00000  00000   ********************
+********************   0   0  0   0    0      0    0       ********************
+********************   0 0 0  0000     0      0    0000    ********************
+********************   00 00  0  0     0      0    0       ********************
+********************    0 0   0   0  00000    0    00000   ********************
+********************                                       ********************
 ******************************************************************************/
 
 
@@ -559,10 +698,10 @@ int ms_strfindn(const char *str, const char *to_find, int n);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Simplified official_fprintf
-* @param file File in which to write
-* @param format string to be printed out, tags may be inserted
-* @param vaarg value of the tags
+* @brief Simplified fprintf.
+* @param file File in which to write.
+* @param format String to be printed out, tags may be inserted.
+* @param vaarg Value of the tags.
 */
 int ms_fprintf(int file, const char *format, ...);
 
@@ -572,9 +711,9 @@ int ms_fprintf(int file, const char *format, ...);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Simplified official_printf
-* @param format string to be printed out, tags may be inserted
-* @param vaarg value of the tags
+* @brief Simplified printf.
+* @param format String to be printed out, tags may be inserted.
+* @param vaarg Value of the tags.
 */
 int ms_printf(const char *format, ...);
 
@@ -584,24 +723,12 @@ int ms_printf(const char *format, ...);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Print the tag givin by ms_printf or ms_fprintf
-* @param str string which starts with the tag
-* @param list list of vaargs
-* @param file in which to write
+* @brief Print the tag givin by ms_printf or ms_fprintf.
+* @param str String which starts with the tag.
+* @param list List of vaargs.
+* @param file File to write in.
 */
 void ms_printf_tag(const char *str, va_list list, int file);
-
-
-/******************************************************************************
-*******************************************************************************
-*******************************************************************************
-******************************************************************************/
-
-
-/******************************************************************************
-*******************************************************************************
-*******************************************************************************
-******************************************************************************/
 
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -609,9 +736,9 @@ void ms_printf_tag(const char *str, va_list list, int file);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Write down a number in a specific file
-* @param nb number to be written
-* @param file file descriptor
+* @brief Write down a number in a specific file.
+* @param nb Number to be written.
+* @param file File descriptor.
 */
 void ms_putnbr(int nb, int file);
 
@@ -621,9 +748,9 @@ void ms_putnbr(int nb, int file);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Write down a char in a specific file
-* @param c char to be written
-* @param file file descriptor
+* @brief Write down a char in a specific file.
+* @param c Char to be written.
+* @param file File descriptor.
 */
 void ms_putchar(char c, int file);
 
@@ -633,16 +760,98 @@ void ms_putchar(char c, int file);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Write down a string in a specific file
-* @param str string to be written
-* @param file file descriptor
+* @brief Write down a string in a specific file.
+* @param str String to be written.
+* @param file File descriptor.
 */
 void ms_putstr(char const *str, int file);
 
 
 /******************************************************************************
-*******************************************************************************
-*******************************************************************************
+********************                                       ********************
+********************   0   0  0000   00000  00000  00000   ********************
+********************   0   0  0   0    0      0    0       ********************
+********************   0 0 0  0000     0      0    0000    ********************
+********************   00 00  0  0     0      0    0       ********************
+********************    0 0   0   0  00000    0    00000   ********************
+********************                                       ********************
+******************************************************************************/
+
+
+/******************************************************************************
+***********************                                ************************
+***********************   0000   00000  00000  00000   ************************
+***********************   0   0    0      0    0       ************************
+***********************   0000     0      0    00000   ************************
+***********************   0   0    0      0        0   ************************
+***********************   0000   00000    0    00000   ************************
+***********************                                ************************
+******************************************************************************/
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_bits_float
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Print the bits of a float.
+* @param nbr Float to be printed out.
+*/
+void ms_bits_float(float nbr);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_bits_int
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Print the bits of a int.
+* @param nbr Int to be printed out.
+*/
+void ms_bits_int(int nbr);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_bits_char
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Print the bits of a char.
+* @param nbr Char to be printed out.
+*/
+void ms_bits_char(char character);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_bits_pnt
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Print the bits of a pointer.
+* @param nbr Pointer to be printed out.
+*/
+void ms_bits_pnt(void *pnt);
+
+
+/******************************************************************************
+***********************                                ************************
+***********************   0000   00000  00000  00000   ************************
+***********************   0   0    0      0    0       ************************
+***********************   0000     0      0    00000   ************************
+***********************   0   0    0      0        0   ************************
+***********************   0000   00000    0    00000   ************************
+***********************                                ************************
+******************************************************************************/
+
+
+/******************************************************************************
+***********************                                ************************
+***********************   00000  0      00000  00000   ************************
+***********************   0      0      0      0       ************************
+***********************   0000   0      00000  0000    ************************
+***********************   0      0          0  0       ************************
+***********************   00000  00000  00000  00000   ************************
+***********************                                ************************
 ******************************************************************************/
 
 
@@ -651,8 +860,9 @@ void ms_putstr(char const *str, int file);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Get a numbre from a string
-* @param str string to read
+* @brief Get a numbre from a string.
+* @param str String to read.
+* @return Number contained in the string.
 */
 int ms_getnbr(char const *str);
 
@@ -662,9 +872,9 @@ int ms_getnbr(char const *str);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Reads the content of a file
-* @param pathname Path of the file to be read
-* @return content of the file
+* @brief Reads the content of a file.
+* @param pathname Path of the file to be read.
+* @return Content of the file.
 */
 char *ms_read(const char *pathname);
 
@@ -674,8 +884,8 @@ char *ms_read(const char *pathname);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief Get th length of a number
-* @param nbr Number from which to get information
+* @brief Get the length of a number.
+* @param nbr Number from which to get information.
 */
 int ms_nbrlen(int nbr);
 
@@ -685,12 +895,47 @@ int ms_nbrlen(int nbr);
 ///////////////////////////////////////////////////////////////////////////////
 
 /**
-* @brief turns a nbr into a str
-* @param nbr nbr to be converted
-* @return newly allocated str containing nbr
+* @brief Turns a nbr into a str.
+* @param nbr Nbr to be converted.
+* @return Newly allocated str containing nbr.
 */
 char *ms_nbr_to_str(int nbr);
 
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_pow
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Set a number to the poxer of y.
+* @param x Number to be powered.
+* @param x Number of the power.
+* @return The result of the operation.
+*/
+int ms_pow(int x, int y);
+
+
+///////////////////////////////////////////////////////////////////////////////
+//ms_getfloat
+///////////////////////////////////////////////////////////////////////////////
+
+/**
+* @brief Get a numbre from a string.
+* @param str String to read.
+* @return Number contained in the string.
+*/
+float ms_getfloat(char *str);
+
+
+/******************************************************************************
+***********************                                ************************
+***********************   00000  0      00000  00000   ************************
+***********************   0      0      0      0       ************************
+***********************   0000   0      00000  0000    ************************
+***********************   0      0          0  0       ************************
+***********************   00000  00000  00000  00000   ************************
+***********************                                ************************
+******************************************************************************/
 
 
 #endif /* !LIB*/

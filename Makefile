@@ -35,7 +35,3 @@ fclean:	clean
 	rm -f $(NAME)
 
 re:	fclean all
-#	make re -C ms_lib/
-#	make re -C ms_math_lib/
-#	make re -C ms_xml_lib/
-#	make re -C ms_csfml_lib/

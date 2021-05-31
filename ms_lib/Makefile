@@ -6,10 +6,12 @@
 ##
 
 SRC	=	ms_else/*.c			\
-		ms_linked_list/*.c	\
+		ms_list/*.c			\
 		ms_memory/*.c		\
 		ms_printf/*.c		\
-		ms_string/*.c
+		ms_string/*.c		\
+		ms_parser/*.c		\
+		ms_bits/*.c
 
 
 NAME	=	ms_lib
