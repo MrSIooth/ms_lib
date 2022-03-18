@@ -3,6 +3,12 @@
 ## Desciption
 ms_lib is a personnel library built during my first year at EPITECH, it contains function from the standard librairy (hich were banned during the year). Not only that the library has an advanced memory management, with the ability to free all pointers allocated by the ms_lib itself.
 
+
+## There are 3 main part:
+ - the __ms_lib__ which has all the basic function
+ - the __ms_sfml_lib__ is an incomplete lib for the csfml graphical librairy
+ - the __ms_math_lib__ is an incomplete lib for the standard math librairy
+
 ## Install
 
 ### :rocket: Clone repository
