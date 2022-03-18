@@ -7,7 +7,7 @@
 
 SRC	=	*.c
 
-NAME	=	test
+NAME	=	exemple
 
 FLAGS	=	-L . ./ms_lib/ms_lib.a -L . ./ms_math_lib/ms_math_lib.a -g3 -L . ./ms_csfml_lib/ms_csfml_lib.a -g3
 

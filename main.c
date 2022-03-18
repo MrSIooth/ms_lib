@@ -5,24 +5,14 @@
 ** test
 */
 
-#include <string.h>
-
-#include "ms_lib/ms_lib.h"
-
-void __attribute__((destructor)) empty_ms_heap();
-
-char *ms_strformat(const char *format, ...);
-
-void empty_ms_heap(void)
-{
-    ms_free_all();
-}
-
 #include <stdint.h>
+#include "ms_lib/ms_lib.h"
 
 int main(int argc, char **argv)
 {
-    char *str = ms_strdup("bob");
-    printf("%s\n", ms_strformat("hello %s (%c) %d", str, 'h', 10));
+    char *str = ms_malloc(sizeof(char) * 12);
+    ms_strcpy(str, "Hello World");
+    ms_printf("%s\n", str);
+    ms_free_all();
     return (0);
 }
