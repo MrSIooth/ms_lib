@@ -1,6 +1,0 @@
-{
-    "files.associations": {
-        "ms_lib.h": "c",
-        "ms_strdup.C": "cpp"
-    }
-}

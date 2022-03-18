@@ -9,7 +9,6 @@
 
 void ms_set_sprite(sfSprite *sprite, sfTexture *texture, sfIntRect *rect, sfVector2f *scale)
 {
-    printf("%f --- %f\n", scale->x, scale->y);
     if (texture != NULL)
         sfSprite_setTexture(sprite, texture, sfTrue);
     if (rect != NULL)
